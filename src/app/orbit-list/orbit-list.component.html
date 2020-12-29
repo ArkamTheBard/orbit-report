@@ -1,0 +1,34 @@
+<h3>Orbit Report</h3>
+<table>
+   <tr class="header-row">
+      <th (click)="sort('name')" class="sortable">Name</th>
+      <th (click)="sort('type')" class="sortable">Type</th>
+      <th>Operational</th>
+      <th>Orbit Type</th>
+      <th>Launch Date</th>
+   </tr>
+   <!-- TODO: put <tr *ngFor=""></tr> here -->
+   <ng-container *ngFor="let satellite of satellites">
+       <tr *ngIf="satellites.indexOf(satellite) %2 === 0; else oddIndex" style="background-color: lightgreen;">
+        <td>{{satellite.name}}</td>
+        <td *ngIf="satellite.shouldShowWarning() === false; else highlightType">{{satellite.type}}</td>
+        <ng-template #highlightType>
+            <td style="background-color: red;">{{satellite.type}}</td>
+        </ng-template>
+        <td>{{satellite.operational}}</td>
+        <td>{{satellite.orbitType}}</td>
+        <td>{{satellite.launchDate}}</td>
+        </tr>
+        <ng-template #oddIndex>
+            <td>{{satellite.name}}</td>
+            <td *ngIf="satellite.shouldShowWarning() === false; else highlightType">{{satellite.type}}</td>
+            <ng-template #highlightType>
+                <td style="background-color: red;">{{satellite.type}}</td>
+            </ng-template>
+            <td>{{satellite.operational}}</td>
+            <td>{{satellite.orbitType}}</td>
+            <td>{{satellite.launchDate}}</td>
+        </ng-template>
+   </ng-container>
+
+</table>
